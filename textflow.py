@@ -1,5 +1,6 @@
-from PySide import QtGui
 import sys
+from PySide import QtGui
+
 from controllers.mainwindow import MainWindowController
 
 def main(argv):

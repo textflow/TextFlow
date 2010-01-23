@@ -1,5 +1,5 @@
-from ui.mainwindow import Ui_MainWindow
 from PySide import QtGui
+from ui.mainwindow import Ui_MainWindow
 
 class MainWindowView(QtGui.QMainWindow, Ui_MainWindow):
     def __init__(self):

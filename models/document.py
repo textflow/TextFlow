@@ -4,10 +4,10 @@ class Document(object):
         self.text = ""
         self.path = ""
     
-    def open(self):
-        if self.path:
-            document = open(self.path, 'r')
-            self.text = document.read()
+    def open(self, path):
+        text_file = open(path, "r")
+        self.text = text_file.read()
+        self.path = path
     
     def save(self):
         if self.path:

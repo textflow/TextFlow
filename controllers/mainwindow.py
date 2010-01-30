@@ -16,3 +16,16 @@ class MainWindowController(object):
             status = "ok"
         
         return status, self.document
+        
+    def save(self, text, path=None):
+        self.document.text = text
+        
+        if path is not None:
+            self.document.path = path
+        
+        try:
+            self.document.save()
+        except IOError:
+            return "fail"
+        else:
+            return "ok"

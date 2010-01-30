@@ -8,9 +8,11 @@ class MainWindowView(QtGui.QMainWindow, Ui_MainWindow):
         self.setupUi(self)
         self.controller = MainWindowController()
         
-        QtCore.QObject.connect(self.actionOpen, QtCore.SIGNAL("triggered()"), self.open_button_clicked)
+        QtCore.QObject.connect(self.actionOpen, QtCore.SIGNAL("triggered()"), self.open_menu_clicked)
         
-    def open_button_clicked(self):
+        QtCore.QObject.connect(self.actionSave, QtCore.SIGNAL("triggered()"), self.save_menu_clicked)
+        
+    def open_menu_clicked(self):
         filepath = QtGui.QFileDialog.getOpenFileName()
         status, document = self.controller.open(filepath)
         
@@ -20,3 +22,12 @@ class MainWindowView(QtGui.QMainWindow, Ui_MainWindow):
             QtGui.QMessageBox.critical(self, "Error",
                                        "The file <b>%s</b> doesn't exists." % filepath,
                                        QtGui.QMessageBox.Ok)
+                                       
+    def save_menu_clicked(self):
+        status = self.controller.save(self.textEdit.toPlainText())
+        
+        if status == "fail":
+            filepath = QtGui.QFileDialog.getSaveFileName()
+            self.controller.save(self.textEdit.toPlainText(), filepath)
+            
+            

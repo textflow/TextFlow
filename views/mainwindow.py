@@ -24,9 +24,9 @@ class MainWindowView(QtGui.QMainWindow, Ui_MainWindow):
                                        QtGui.QMessageBox.Ok)
                                        
     def save_menu_clicked(self):
-        status = self.controller.save(self.textEdit.toPlainText())
+        success = self.controller.save(self.textEdit.toPlainText())
         
-        if status == "fail":
+        if not success:
             filepath = QtGui.QFileDialog.getSaveFileName()
             self.controller.save(self.textEdit.toPlainText(), filepath)
             

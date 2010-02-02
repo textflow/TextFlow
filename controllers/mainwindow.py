@@ -26,6 +26,6 @@ class MainWindowController(object):
         try:
             self.document.save()
         except IOError:
-            return "fail"
+            return False
         else:
-            return "ok"
+            return True

@@ -36,37 +36,37 @@ class DocumentModelTest(unittest.TestCase):
         text_file = open("test_file", "w")
         text_file.close()
         
-        mainwindow_controller.document.path = "test_file"
-        save_status = mainwindow_controller.save("this is a test file")
+        success = mainwindow_controller.save("this is a test file", "test_file")
         
         text_file = open("test_file", "r")
         text_file_content = text_file.read()
         text_file.close()
         
-        self.assertEquals("ok", save_status)
+        self.assertTrue(success)
         self.assertEquals("this is a test file", text_file_content)
         
     def test_save_inexistent_file(self):
         mainwindow_controller = MainWindowController()
-        save_status = mainwindow_controller.save("this is a test file")
+        
+        #path isn't defined
+        success = mainwindow_controller.save("this is a test file")
 
-        self.assertEquals("fail", save_status)
+        self.assertFalse(success)
         
     def test_create_save_as_file(self):
         mainwindow_controller = MainWindowController()
         save_status = mainwindow_controller.save("this is a test file", "test_file")
         
-        self.assertEquals("ok", save_status)
+        self.assertTrue(save_status)
         self.assertTrue(os.path.exists("test_file"))
         
     def test_content_save_as_file(self):
         mainwindow_controller = MainWindowController()
-        
-        save_status = mainwindow_controller.save("this is a test file", "test_file")
+        success = mainwindow_controller.save("this is a test file", "test_file")
         
         text_file = open("test_file", "r")
         text_file_content = text_file.read()
         text_file.close()
         
-        self.assertEquals("ok", save_status)
+        self.assertTrue(success)
         self.assertEquals("this is a test file", text_file_content)

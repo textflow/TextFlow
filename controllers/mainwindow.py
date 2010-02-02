@@ -1,9 +1,31 @@
-from views.mainwindow import MainWindowView
+from PySide import QtGui
+
+from models.document import Document
 
 class MainWindowController(object):
     def __init__(self):
         super(MainWindowController, self).__init__()
-        self.view = MainWindowView()
-    
-    def show_view(self):
-        self.view.show()
+        self.document = Document()
+        
+    def open(self, path):
+        try:
+            self.document.open(path)
+        except IOError:
+            status = "fail"
+        else:
+            status = "ok"
+        
+        return status, self.document
+        
+    def save(self, text, path=None):
+        self.document.text = text
+        
+        if path is not None:
+            self.document.path = path
+        
+        try:
+            self.document.save()
+        except IOError:
+            return "fail"
+        else:
+            return "ok"

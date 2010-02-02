@@ -1,13 +1,13 @@
 import sys
 from PySide import QtGui
 
-from controllers.mainwindow import MainWindowController
+from views.mainwindow import MainWindowView
 
 def main(argv):
     application = QtGui.QApplication(argv)
     
-    main_window = MainWindowController()
-    main_window.show_view()
+    main_window = MainWindowView()
+    main_window.show()
     
     sys.exit(application.exec_())
 

@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'MainWindow.ui'
+# Form implementation generated from reading ui file 'mainwindow.ui'
 #
-# Created: Tue Jan 19 13:32:20 2010
+# Created: Tue Feb  2 17:51:53 2010
 #      by: PySide uic UI code generator
 #
 # WARNING! All changes made in this file will be lost!
@@ -24,14 +24,11 @@ class Ui_MainWindow(object):
         self.horizontalLayout.addWidget(self.textEdit)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtGui.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 640, 22))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 640, 25))
         self.menubar.setObjectName("menubar")
         self.menuFile = QtGui.QMenu(self.menubar)
         self.menuFile.setObjectName("menuFile")
         MainWindow.setMenuBar(self.menubar)
-        self.statusbar = QtGui.QStatusBar(MainWindow)
-        self.statusbar.setObjectName("statusbar")
-        MainWindow.setStatusBar(self.statusbar)
         self.actionOpen = QtGui.QAction(MainWindow)
         self.actionOpen.setObjectName("actionOpen")
         self.actionNew = QtGui.QAction(MainWindow)
@@ -42,7 +39,6 @@ class Ui_MainWindow(object):
         self.actionSave_As.setObjectName("actionSave_As")
         self.actionClose = QtGui.QAction(MainWindow)
         self.actionClose.setObjectName("actionClose")
-        self.menuFile.addAction(self.actionNew)
         self.menuFile.addAction(self.actionOpen)
         self.menuFile.addSeparator()
         self.menuFile.addAction(self.actionSave)

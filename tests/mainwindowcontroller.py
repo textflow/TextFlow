@@ -18,17 +18,17 @@ class DocumentModelTest(unittest.TestCase):
         text_file = open("test_file", "w")
         text_file.close()
         
-        open_status, document = mainwindow_controller.open("test_file")
+        success, document = mainwindow_controller.open("test_file")
         
-        self.assertEquals("ok", open_status)
+        self.assertTrue(success)
         self.assertEquals("test_file", document.path)
         
     def test_open_nonexistent_file(self):
         mainwindow_controller = MainWindowController()
         
-        open_status, document = mainwindow_controller.open("afilethatnoexists")
+        success, document = mainwindow_controller.open("afilethatnoexists")
         
-        self.assertEquals("fail", open_status)
+        self.assertFalse(success)
         
     def test_content_save_existent_file(self):
         mainwindow_controller = MainWindowController()

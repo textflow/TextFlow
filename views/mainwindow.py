@@ -14,11 +14,11 @@ class MainWindowView(QtGui.QMainWindow, Ui_MainWindow):
         
     def open_menu_clicked(self):
         filepath = QtGui.QFileDialog.getOpenFileName()
-        status, document = self.controller.open(filepath)
+        success, document = self.controller.open(filepath)
         
-        if status == "ok":
+        if success:
             self.textEdit.setPlainText(document.text)
-        elif status == "fail":
+        else:
             QtGui.QMessageBox.critical(self, "Error",
                                        "The file <b>%s</b> doesn't exists." % filepath,
                                        QtGui.QMessageBox.Ok)

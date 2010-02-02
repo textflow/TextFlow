@@ -34,12 +34,9 @@ class DocumentModelTest(unittest.TestCase):
         self.assertEquals("test_file", document.path)
         self.assertEquals("this is only a test", document.text)
         
-    def open_inexistent_file(self):
+    def test_open_inexistent_file(self):
         document = Document()
-        document.open("test_file")
-        
-        self.assertEquals("test_file", document.path)
-        self.assertEquals("", document.text)
+        self.assertRaises(IOError, document.open, "test_file")
         
     def test_create_save_file(self):
         document = Document()

@@ -23,7 +23,7 @@ class DocumentModelTest(unittest.TestCase):
         self.assertEquals("ok", open_status)
         self.assertEquals("test_file", document.path)
         
-    def test_open_nonexistent_file(self):
+    def test_open_inexistent_file(self):
         mainwindow_controller = MainWindowController()
         
         open_status, document = mainwindow_controller.open("afilethatnoexists")

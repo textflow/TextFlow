@@ -36,12 +36,9 @@ class DocumentModelTest(unittest.TestCase):
         
     def test_open_inexistent_file(self):
         document = Document()
-        document.open("test_file")
+        self.assertRaises(IOError, document.open, "test_file")
         
-        self.assertEquals("test_file", document.path)
-        self.assertEquals("", document.text)
-        
-    def test_create_save_file(self):
+    def test_save_inexistent_file(self):
         document = Document()
         document.text = "this is only a test of save file"
         document.path = "test_file"
@@ -49,9 +46,10 @@ class DocumentModelTest(unittest.TestCase):
         document.save()
         
         self.assertTrue(os.path.exists(document.path))
+        self.assertEquals("this is only a test of save file", document.text)
         
-    def test_save_inexistent_file(self):
-        document = Document()
+    def test_save_no_defined_path(self):
+        document = Document() # document.path is None
         self.assertRaises(IOError, document.save)
     
     def test_text_save_file(self):
@@ -62,5 +60,18 @@ class DocumentModelTest(unittest.TestCase):
         document.save()
         
         text_file = open(document.path, "r")
+        self.assertEquals(document.text, text_file.read())
         
+    def test_replace_text_save_file(self):
+        text_file = open("test_file", "w")
+        text_file.write("this is only a test file")
+        text_file.close()
+        
+        document = Document()
+        document.text = "I changed the text"
+        document.path = "test_file"
+        
+        document.save()
+        
+        text_file = open ("test_file", "r")
         self.assertEquals(document.text, text_file.read())

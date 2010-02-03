@@ -11,11 +11,11 @@ class MainWindowController(object):
         try:
             self.document.open(path)
         except IOError:
-            status = "fail"
+            success = False
         else:
-            status = "ok"
+            success = True
         
-        return status, self.document
+        return success, self.document
         
     def save(self, text, path=None):
         self.document.text = text
@@ -26,6 +26,6 @@ class MainWindowController(object):
         try:
             self.document.save()
         except IOError:
-            return "fail"
+            return False
         else:
-            return "ok"
+            return True

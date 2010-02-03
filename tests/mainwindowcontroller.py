@@ -59,6 +59,7 @@ class DocumentModelTest(unittest.TestCase):
         
         self.assertTrue(save_status)
         self.assertTrue(os.path.exists("test_file"))
+        self.assertEquals("test_file", mainwindow_controller.document.path)
         
     def test_content_save_as_file(self):
         mainwindow_controller = MainWindowController()
@@ -70,3 +71,4 @@ class DocumentModelTest(unittest.TestCase):
         
         self.assertTrue(success)
         self.assertEquals("this is a test file", text_file_content)
+        self.assertEquals("this is a test file", mainwindow_controller.document.text)

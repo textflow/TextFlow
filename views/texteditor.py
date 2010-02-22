@@ -10,4 +10,4 @@ class TextEditor(QtGui.QTextEdit):
         self.setAcceptDrops(True)
         
     def dropEvent(self, event):
-        print "dropped"
+        print str(event.mimeData().urls()[0].toLocalFile())

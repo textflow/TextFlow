@@ -25,27 +25,27 @@ class MainWindowView(QtGui.QMainWindow, Ui_MainWindow):
         filepath = QtGui.QFileDialog.getOpenFileName()
         
         if filepath:
-            success, document = self.controller.open(filepath)
+            success, document = self.editor.controller.open(filepath)
             
             if success:
-                self.textEdit.setPlainText(document.text)
+                self.editor.setPlainText(document.text)
             else:
                 QtGui.QMessageBox.critical(self, "Error",
                                            "The file <b>%s</b> doesn't exists." % 
                                            filepath, QtGui.QMessageBox.Ok)
                                        
     def save_menu_clicked(self):
-        success = self.controller.save(self.textEdit.toPlainText())
+        success = self.editor.controller.save(self.editor.toPlainText())
         
         if not success:
             filepath = QtGui.QFileDialog.getSaveFileName()
             
             if filepath:
-                self.controller.save(self.textEdit.toPlainText(), filepath)
+                self.editor.controller.save(self.editor.toPlainText(), filepath)
             
     def save_as_menu_clicked(self):
         filepath = QtGui.QFileDialog.getSaveFileName()
         
         if filepath:
-            self.controller.save(self.textEdit.toPlainText(), filepath)
+            self.editor.controller.save(self.editor.toPlainText(), filepath)
             

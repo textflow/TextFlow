@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'mainwindow.ui'
 #
-# Created: Tue Feb  2 17:51:53 2010
+# Created: Mon Feb 22 16:52:28 2010
 #      by: PySide uic UI code generator
 #
 # WARNING! All changes made in this file will be lost!
@@ -19,9 +19,6 @@ class Ui_MainWindow(object):
         self.horizontalLayout.setSpacing(0)
         self.horizontalLayout.setMargin(0)
         self.horizontalLayout.setObjectName("horizontalLayout")
-        self.textEdit = QtGui.QTextEdit(self.centralwidget)
-        self.textEdit.setObjectName("textEdit")
-        self.horizontalLayout.addWidget(self.textEdit)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtGui.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 640, 25))

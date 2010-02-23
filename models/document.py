@@ -9,7 +9,7 @@ class Document(object):
         self.path = path
     
     def save(self):
-        if self.path == None:
+        if self.path is None:
             raise IOError
         else:
             text_file = open(self.path, "w")

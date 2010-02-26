@@ -1,14 +1,14 @@
-from PySide import QtGui, QtCore
+from PyQt4 import QtGui, QtCore
 from ui.mainwindow import Ui_MainWindow
 from controllers.mainwindow import MainWindowController
-from views.texteditor import TextEditor
+from views.texteditor import TFEditor
 
 class MainWindowView(QtGui.QMainWindow, Ui_MainWindow):
     def __init__(self):
         super(MainWindowView, self).__init__()
         self.setupUi(self)
         
-        self.editor = TextEditor(self.centralwidget)
+        self.editor = TFEditor(self.centralwidget)
         self.editor.setObjectName("text_editor")
         self.horizontalLayout.addWidget(self.editor)
         

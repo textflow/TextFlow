@@ -1,4 +1,3 @@
-
 from models.document import Document
 
 class MainWindowController(object):

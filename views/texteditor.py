@@ -41,54 +41,46 @@ class TextEditor(QtGui.QTextEdit):
                                        filepath, QtGui.QMessageBox.Ok)
                                        
 class LineNumbers(QtGui.QWidget):
-    #TODO
-    # 1 - auto resize (x)
-    # 2 - melhor mais o desempenho (fazer o for apenas entre as linhas que aparecerao) (x)
-    # 3 - refactoring
-    # 4 - bug com blocos com mais de uma linha
-    
     def __init__(self, text_editor, parent=None):
         QtGui.QWidget.__init__(self, parent)
         self.text_editor = text_editor
         self.text_editor.installEventFilter(self)
-        self.back_brush = QtGui.QBrush(QtGui.QColor("#d8e0f9"))
+        self.back_color = QtGui.QColor("#d8e0f9")
+        self.text_color = QtGui.QColor("#000000") 
     
     def paintEvent(self, event):
-        # paint background
-        
-        painter = QtGui.QPainter(self)
-        painter.fillRect(event.rect(), self.back_brush)
-        
-        document = self.text_editor.document()        
-        
+        # getting important data
+        document = self.text_editor.document() 
         contents_y = self.text_editor.verticalScrollBar().value()
         text_editor_height = self.text_editor.height()
-        line_height = document.documentLayout().blockBoundingRect(document.firstBlock()).height()
+        line_height = self.fontMetrics().height()
+        visible_lines_number = self.__get_visible_lines_number()
+        top_line = self.__get_visible_top_line()
+        layout = document.documentLayout()
         
-        top_line = int(math.ceil(contents_y / line_height))
-        total_lines = int((text_editor_height / line_height))
-        
-        
-        pen = QtGui.QPen(QtGui.QColor("#000000"))
+        # pen settings
+        painter = QtGui.QPainter(self)
+        pen = QtGui.QPen(self.text_color)
         painter.setPen(pen)
         painter.setFont(painter.font())
-
         
-        if document.blockCount() < total_lines:
+        # paint background
+        painter.fillRect(event.rect(), QtGui.QBrush(self.back_color))
+            
+        # get the end range to write the numbers
+        if document.blockCount() < visible_lines_number:
             end_range_line = document.blockCount()
         else:
-            end_range_line = top_line + total_lines
+            end_range_line = top_line + visible_lines_number - 1
         
-        
-        for line in range(max(1, top_line), end_range_line + 2):
-            
-            if not line in range(1, document.blockCount() + 1):
-                continue
+        # write the numbers
+        for line in xrange(max(1, top_line), min(end_range_line + 1, document.blockCount() + 1)):
             
             block = document.findBlockByNumber(line - 1)
-            position = document.documentLayout().blockBoundingRect(block).topLeft()
-#            
+            position = layout.blockBoundingRect(block).topLeft()
+            
             painter.drawText(self.width() - self.fontMetrics().width(str(line)) - 6, position.y() - contents_y + self.fontMetrics().ascent(), str(line))
+        
         
         painter.end()
                 
@@ -103,7 +95,29 @@ class LineNumbers(QtGui.QWidget):
         QtGui.QWidget.update(self, *args)
     
     def eventFilter(self, object, event):
-        # Update the line numbers for all events on the text edit and the viewport.
-        # This is easier than connecting all necessary singals.
         self.update()
         return False
+
+    def __get_visible_lines_number(self):
+        text_editor_height = self.text_editor.height()
+        line_height = self.fontMetrics().height()
+        
+        return int(math.ceil((text_editor_height / float(line_height))))
+    
+    def __get_visible_top_line(self):
+        document = self.text_editor.document()
+        contents_y = self.text_editor.verticalScrollBar().value()
+        line_height = self.fontMetrics().height()
+        
+        guess_top_line = min(int(math.ceil(contents_y / line_height)) + 1, document.blockCount())
+        
+        block = document.findBlockByNumber(guess_top_line -1)
+        position = document.documentLayout().blockBoundingRect(block).topLeft()
+        guess_top_line
+        
+        while (guess_top_line > 1) and (position.y() >= contents_y):
+            guess_top_line -= 1
+            block = document.findBlockByNumber(guess_top_line -1)
+            position = document.documentLayout().blockBoundingRect(block).topLeft()
+        
+        return guess_top_line

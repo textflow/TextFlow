@@ -7,13 +7,14 @@ import math
 class TFEditor(QtGui.QWidget):
     def __init__(self, parent=None):
         QtGui.QWidget.__init__(self, parent)
-        self.text_editor = TextEditor(parent)
-        self.line_numbers = LineNumbers(self.text_editor, parent)
+        self.text_area = TextEditor(parent)
+        self.line_numbers = LineNumbers(self.text_area, parent)
+        self.controller = TextEditorController()
         
         hbox = QtGui.QHBoxLayout()
         hbox.setSpacing(0)
         hbox.addWidget(self.line_numbers)
-        hbox.addWidget(self.text_editor)
+        hbox.addWidget(self.text_area)
         self.setLayout(hbox)
 
 class TextEditor(QtGui.QTextEdit):
@@ -25,8 +26,6 @@ class TextEditor(QtGui.QTextEdit):
         super(TextEditor, self).__init__(parent)
         self.setAcceptDrops(True)
         self.setFrameShape(QtGui.QFrame.NoFrame)
-        
-        self.controller = TextEditorController()
         
     def dropEvent(self, event):
         filepath = str(event.mimeData().urls()[0].toLocalFile())

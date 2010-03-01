@@ -9,13 +9,20 @@ class TFEditor(QtGui.QWidget):
         QtGui.QWidget.__init__(self, parent)
         self.text_area = TextEditor(parent)
         self.line_numbers = LineNumbers(self.text_area, parent)
-        self.controller = TextEditorController()
+        self.controller = self.text_area.controller
         
         hbox = QtGui.QHBoxLayout()
         hbox.setSpacing(0)
         hbox.addWidget(self.line_numbers)
         hbox.addWidget(self.text_area)
         self.setLayout(hbox)
+        
+    def get_text(self):
+        return self.text_area.toPlainText()
+        
+    def set_text(self, text):
+        self.text_area.setPlainText(text)
+        
 
 class TextEditor(QtGui.QTextEdit):
     """
@@ -24,8 +31,11 @@ class TextEditor(QtGui.QTextEdit):
     
     def __init__(self, parent):
         super(TextEditor, self).__init__(parent)
+        self.controller = TextEditorController()
+        
         self.setAcceptDrops(True)
         self.setFrameShape(QtGui.QFrame.NoFrame)
+        self.setFrameShadow(QtGui.QFrame.Plain)
         
     def dropEvent(self, event):
         filepath = str(event.mimeData().urls()[0].toLocalFile())

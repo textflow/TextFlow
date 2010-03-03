@@ -8,6 +8,7 @@ class TFEditor(QtGui.QWidget):
     def __init__(self, parent=None):
         QtGui.QWidget.__init__(self, parent)
         self.text_area = TextEditor(parent)
+        
         self.line_numbers = LineNumbers(self.text_area, parent)
         self.controller = self.text_area.controller
         

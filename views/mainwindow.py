@@ -10,7 +10,16 @@ class MainWindowView(QtGui.QMainWindow, Ui_MainWindow):
         
         self.editor = TFEditor(self.centralwidget)
         self.editor.setObjectName("text_editor")
-        self.horizontalLayout.addWidget(self.editor)
+        self.splitter = QtGui.QSplitter(self)
+        
+        self.list_view = QtGui.QListView(self)
+        self.list_view.setFrameShape(QtGui.QFrame.NoFrame)
+        self.list_view.setFrameShadow(QtGui.QFrame.Plain)
+        
+        self.splitter.addWidget(self.list_view)
+        self.splitter.addWidget(self.editor)
+        
+        self.horizontalLayout.addWidget(self.splitter)
         
         self.controller = MainWindowController()
         

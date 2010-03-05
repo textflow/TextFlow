@@ -7,12 +7,14 @@ import math
 class TFEditor(QtGui.QWidget):
     def __init__(self, parent=None):
         QtGui.QWidget.__init__(self, parent)
+        
         self.text_area = TextEditor(parent)
         
         self.line_numbers = LineNumbers(self.text_area, parent)
         self.controller = self.text_area.controller
         
         hbox = QtGui.QHBoxLayout()
+        hbox.setContentsMargins(0,0,0,0)
         hbox.setSpacing(0)
         hbox.addWidget(self.line_numbers)
         hbox.addWidget(self.text_area)

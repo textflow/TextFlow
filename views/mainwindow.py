@@ -2,6 +2,7 @@ from PyQt4 import QtGui, QtCore
 from ui.mainwindow import Ui_MainWindow
 from controllers.mainwindow import MainWindowController
 from views.texteditor import TFEditor
+from views.documentlist import DocumentList
 
 class MainWindowView(QtGui.QMainWindow, Ui_MainWindow):
     def __init__(self):
@@ -12,12 +13,11 @@ class MainWindowView(QtGui.QMainWindow, Ui_MainWindow):
         self.editor.setObjectName("text_editor")
         self.splitter = QtGui.QSplitter(self)
         
-        self.list_view = QtGui.QListView(self)
-        self.list_view.setFrameShape(QtGui.QFrame.NoFrame)
-        self.list_view.setFrameShadow(QtGui.QFrame.Plain)
+        self.list_view = DocumentList(self)
         
         self.splitter.addWidget(self.list_view)
         self.splitter.addWidget(self.editor)
+        self.splitter.setSizes((200, self.width() -200))
         
         self.horizontalLayout.addWidget(self.splitter)
         

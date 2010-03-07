@@ -37,3 +37,25 @@ class DocumentListControllerTest(unittest.TestCase):
         item = controller.association.keys()[0]
         
         self.assertEquals("othertest.tf", item.text())
+        
+    def remove_item_dict_test(self):
+        controller = DocumentListController()
+        
+        document = Document()
+        controller.add(document)
+        controller.remove(document)
+        
+        self.assertEquals(0, len(controller.association))
+        
+    def remove_item_dict2_test(self):
+        controller = DocumentListController()
+        
+        document = Document()
+        document2 = Document()
+        controller.add(document)
+        controller.add(document2)
+        controller.remove(document)
+        
+        self.assertEquals(1, len(controller.association))
+        self.assertTrue(document2 in controller.association.values())
+        self.assertFalse(document in controller.association.values())

@@ -14,3 +14,8 @@ class DocumentListController(object):
             
         item = QtGui.QStandardItem(text)
         self.association[item] = document
+        
+    def remove(self, document):
+        for item in self.association.items():
+            if document in item:
+                self.association.pop(item[0])

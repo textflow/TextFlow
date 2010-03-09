@@ -32,6 +32,9 @@ class TextEditor(QtGui.QTextEdit):
     Text editor view.
     """    
     
+    def eventFilter(self, *args):
+        print "Editor event"
+    
     def __init__(self, parent):
         super(TextEditor, self).__init__(parent)
         self.controller = TextEditorController()
@@ -56,7 +59,7 @@ class LineNumbers(QtGui.QWidget):
     def __init__(self, text_editor, parent=None):
         QtGui.QWidget.__init__(self, parent)
         self.text_editor = text_editor
-        self.text_editor.installEventFilter(self)
+        self.text_editor.viewport().installEventFilter(self)
         self.back_color = QtGui.QColor("#d8e0f9")
         self.text_color = QtGui.QColor("#000000") 
     

@@ -29,6 +29,10 @@ class MainWindowView(QtGui.QMainWindow, Ui_MainWindow):
         QtCore.QObject.connect(self.actionOpen, QtCore.SIGNAL("triggered()"), self.open_menu_clicked)
         QtCore.QObject.connect(self.actionSave, QtCore.SIGNAL("triggered()"), self.save_menu_clicked)
         QtCore.QObject.connect(self.actionSave_As, QtCore.SIGNAL("triggered()"), self.save_as_menu_clicked)
+    
+    def new(self):
+        pass
+    
         
     def open_menu_clicked(self):
         filepath = QtGui.QFileDialog.getOpenFileName()

@@ -32,9 +32,6 @@ class TextEditor(QtGui.QTextEdit):
     Text editor view.
     """    
     
-    def eventFilter(self, *args):
-        print "Editor event"
-    
     def __init__(self, parent):
         super(TextEditor, self).__init__(parent)
         self.controller = TextEditorController()

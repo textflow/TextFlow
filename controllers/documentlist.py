@@ -15,7 +15,19 @@ class DocumentListController(object):
         item = QtGui.QStandardItem(text)
         self.association[item] = document
         
+        return item
+        
     def remove(self, document):
         for item in self.association.items():
             if document in item:
                 self.association.pop(item[0])
+                return item[0]
+                
+    def get_item_from_document(self, document):
+        for item in self.association.items():
+            if document in item:
+                return item[0]
+                
+    def change_filename(self, document, new_filepath):
+        item = self.get_item_from_document(document)
+        item.setText(os.path.basename(new_filepath))

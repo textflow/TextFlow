@@ -59,3 +59,36 @@ class DocumentListControllerTest(unittest.TestCase):
         self.assertEquals(1, len(controller.association))
         self.assertTrue(document2 in controller.association.values())
         self.assertFalse(document in controller.association.values())
+        
+    def remove_item_return_test(self):
+        controller = DocumentListController()
+        
+        document = Document()
+        controller.add(document)
+        
+        document_item = controller.association.items()[0][0]
+        removed_item = controller.remove(document)
+        
+        self.assertEquals(document_item, removed_item)
+        
+        
+    def get_item_from_document_test(self):
+        controller = DocumentListController()
+        
+        document = Document()
+        controller.add(document)
+        
+        item = controller.get_item_from_document(document)
+        self.assertEquals(document, controller.association[item])
+        
+    def change_filename_test(self):
+        controller = DocumentListController()
+        
+        document = Document()
+        document.path = "/path/to/othertest.tf"
+        
+        controller.add(document)
+        item = controller.association.keys()[0]
+        controller.change_filename(document, "/new/file/name.tf")
+        
+        self.assertEquals("name.tf", item.text())

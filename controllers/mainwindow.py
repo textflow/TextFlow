@@ -11,5 +11,8 @@ class MainWindowController(object):
         
         return document
         
+    def close(self, document):
+        self.documents.remove(document)
+        
     
 

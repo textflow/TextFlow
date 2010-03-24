@@ -5,20 +5,15 @@ from views.texteditor import TFEditor
 from views.documentlist import DocumentList
 
 class MainWindowView(QtGui.QMainWindow, Ui_MainWindow):
-    #TODO: remover o uso do self.editors. trocar por pegar o widget atual.
-    
     def __init__(self):
         super(MainWindowView, self).__init__()
         self.setupUi(self)
 
-        self.editor = None
-        
         self.editor_stack = QtGui.QStackedWidget()
         self.splitter = QtGui.QSplitter(self)
         self.list_view = DocumentList(self)
         self.new()
         
-        self.editor_stack.addWidget(self.editor)
         self.splitter.addWidget(self.list_view)
         self.splitter.addWidget(self.editor_stack)
         self.splitter.setSizes((self.width()/3.0, 2*self.width()/3.0))
@@ -43,13 +38,13 @@ class MainWindowView(QtGui.QMainWindow, Ui_MainWindow):
     def new(self, filepath=None):
         new_editor = TFEditor(self.centralwidget)
         self.editor_stack.addWidget(new_editor)
-        self.editor = new_editor
         self.editor_stack.setCurrentWidget(new_editor)
+        editor = self.editor_stack.currentWidget()
         
         if filepath is not None:
-            self._open(self.editor, filepath)
+            self._open(editor, filepath)
         
-        self.list_view.add(self.editor)
+        self.list_view.add(editor)
         
         return new_editor
     
@@ -106,7 +101,6 @@ class MainWindowView(QtGui.QMainWindow, Ui_MainWindow):
         self._change_to_editor(editor)
         
     def listview_close(self, document):
-        print "close signal"
         self.close(document)        
         
     def open_menu_clicked(self):

@@ -35,11 +35,18 @@ class DocumentList(QtGui.QTreeView):
         row_count = self.model.rowCount()
         self.model.setItem(row_count, 0, item)
         self.model.setItem(row_count, 1, icon_item)
+        
+        self.select_document(document)
 
     def remove(self, document):
         item = self.controller.remove(document)
         index = self.model.indexFromItem(item)
         self.model.removeRow(index.row())
+        
+    def select_document(self, document):
+        item = self.controller.get_item_from_document(document)
+        index = self.model.indexFromItem(item)
+        self.setCurrentIndex(index)
         
     def update(self, document):
         self.controller.change_filename(document, str(document.path))
